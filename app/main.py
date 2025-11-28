@@ -4,3 +4,4 @@ def add(a, b):
 if __name__ == "__main__":
     print("Hello DevOps!")
     print("Hello DevOps!")
+    print("Hello DevOps!")
