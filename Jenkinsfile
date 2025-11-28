@@ -15,8 +15,8 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh """
-                docker build -t $REGISTRY:$IMAGE_TAG .
+                bat """
+                docker build -t %REGISTRY%:%IMAGE_TAG% .
                 """
             }
         }
@@ -24,23 +24,23 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('my-sonar-server') {
-                    sh "sonar-scanner"
+                    bat "sonar-scanner"
                 }
             }
         }
 
         stage('Docker Push') {
             steps {
-                sh """
-                docker push $REGISTRY:$IMAGE_TAG
+                bat """
+                docker push %REGISTRY%:%IMAGE_TAG%
                 """
             }
         }
 
         stage('Update Helm Values & Push to Git (untuk ArgoCD)') {
             steps {
-                sh """
-                echo "image: $REGISTRY:$IMAGE_TAG" > deployment-image.txt
+                powershell """
+                Set-Content -Path deployment-image.txt -Value "image: $env:REGISTRY`:$env:IMAGE_TAG"
                 """
             }
         }
