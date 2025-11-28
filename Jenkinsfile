@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/YOUR_USERNAME/simple-ci-cd-demo.git'
+                git branch: 'main', url: 'https://github.com/Nova-Gear/simple-ci-cd-demo.git'
             }
         }
 
