@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: simple-ci-cd-demo
+  name: simple-ci-demo
   labels:
-    app: simple-ci-cd-demo
+    app: simple-ci-demo
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: simple-ci-cd-demo
+      app: simple-ci-demo
   template:
     metadata:
       labels:
-        app: simple-ci-cd-demo
+        app: simple-ci-demo
     spec:
       containers:
-        - name: app
-          image: aljics4/simple-ci-cd-demo:latest
+        - name: simple-ci-demo
+          image: aljics4/simple-ci-demo:latest
           ports:
-            - containerPort: 80
+            - containerPort: 8000
