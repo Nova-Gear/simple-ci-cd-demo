@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        sonarRunner "sonar-scanner"
-    }
-
     environment {
         SONARQUBE_ENV = "local-sonar"
         DOCKERHUB_CREDENTIALS = "dockerhub"
