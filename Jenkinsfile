@@ -1,17 +1,41 @@
 pipeline {
     agent any
 
+    tools {
+        sonarQubeScanner "sonar-scanner"
+    }
+
+    environment {
+        SONARQUBE_ENV = "local-sonar"
+    }
+
     stages {
+
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/Nova-Gear/simple-ci-cd-demo.git'
+                checkout scm
             }
         }
 
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('my-sonar-server') {
-                    bat "sonar-scanner"
+                withSonarQubeEnv("${env.SONARQUBE_ENV}") {
+                    bat """
+                        sonar-scanner ^
+                        -Dsonar.projectKey=simple-ci-cd-demo ^
+                        -Dsonar.projectName=simple-ci-cd-demo ^
+                        -Dsonar.sources=./app ^
+                        -Dsonar.language=py ^
+                        -Dsonar.sourceEncoding=UTF-8
+                    """
+                }
+            }
+        }
+
+        stage("Quality Gate") {
+            steps {
+                timeout(time: 10, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
                 }
             }
         }
@@ -19,10 +43,10 @@ pipeline {
 
     post {
         success {
-            echo "Pipeline success!"
+            echo "Pipeline selesai, SonarQube PASS"
         }
         failure {
-            echo "Pipeline failed!"
+            echo "Pipeline gagal!"
         }
     }
 }
