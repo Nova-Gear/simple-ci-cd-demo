@@ -1,10 +1,20 @@
-FROM python:3.12-slim
+# Gunakan base image Python ringan
+FROM python:3.10-slim
 
+# Set working directory di dalam container
 WORKDIR /app
-COPY app/ /app
 
-# Optional: install dependencies kalau ada
-# RUN pip install -r requirements.txt
+# Copy file requirements dulu untuk caching layer
+COPY app/requirements.txt .
 
-# Jalankan main.py, lalu terus stay alive (misal sleep infinity)
-CMD ["sh", "-c", "python main.py && tail -f /dev/null"]
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy seluruh folder app
+COPY app/ .
+
+# Expose port Flask
+EXPOSE 8000
+
+# Jalankan aplikasi
+CMD ["python", "main.py"]

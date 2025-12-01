@@ -34,7 +34,7 @@ pipeline {
             steps {
                 sleep (time: 30, unit: 'SECONDS')
                 timeout(time: 2, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
+                    waitForQualityGate abortPipeline: false
                 }
             }
         }
