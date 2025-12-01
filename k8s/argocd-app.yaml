@@ -5,16 +5,13 @@ metadata:
   namespace: argocd
 spec:
   project: default
-
   source:
     repoURL: https://github.com/Nova-Gear/simple-ci-cd-demo.git
     targetRevision: main
     path: k8s
-
   destination:
     server: https://kubernetes.default.svc
     namespace: default
-
   syncPolicy:
     automated:
       prune: true
