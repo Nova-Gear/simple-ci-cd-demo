@@ -10,7 +10,7 @@ if (Test-Path $env:USERPROFILE\.kube\config) {
 # restart shell supaya env bersih (close/reopen PS jika perlu)
 
 # buat cluster dev
-kind create cluster --name dev --config C:\Kind\kind-cluster.yaml
+kind create cluster --name dev --config C:\Users\user\Documents\lib\riset\riset-ai\trae\simple-ci-cd-demo\kind-cluster.yaml
 # cek cluster
 kubectl get nodes
 # cek pod di semua namespace
@@ -24,7 +24,7 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
 # cek pod di namespace argocd
 kubectl -n argocd get pods
 # apply argo-cd-server.yaml
-kubectl apply -f ./argo-cd-server.yaml
+kubectl apply -f C:\Users\user\Documents\lib\riset\riset-ai\trae\simple-ci-cd-demo\argo-cd-server.yaml
 # cek svc di namespace argocd
 kubectl -n argocd get svc
 # get password argocd-initial-admin-secret
@@ -32,7 +32,7 @@ $pw = kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.da
 [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($pw))
 
 # apply argo-cd-app.yaml
-kubectl apply -f k8s/argo-cd-app.yaml
+kubectl apply -f C:\Users\user\Documents\lib\riset\riset-ai\trae\simple-ci-cd-demo\k8s\argocd-app.yaml
 # cek application di namespace argocd
 kubectl -n argocd get applications
 # cek pod di namespace default
